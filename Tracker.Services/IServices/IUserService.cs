@@ -11,7 +11,7 @@ namespace Tracker.Services.IServices
     {
         UserDTO FindUser(string username, string password);
 
-        void AddUser(UserDTO user);
+        bool AddUser(UserDTO user);
 
     }
 }

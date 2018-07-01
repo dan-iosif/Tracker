@@ -25,7 +25,10 @@ namespace Tracker.Repository.Repository
             DbContext.Users.Add(new Users()
             {
                 Username = userModel.Username,
+                PasswordHash = userModel.Password,
+                Email = userModel.Email
             });
+            DbContext.SaveChanges();
         }
 
     }

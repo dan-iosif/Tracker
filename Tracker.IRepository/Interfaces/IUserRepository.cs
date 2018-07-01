@@ -10,6 +10,6 @@ namespace Tracker.IRepository.Interfaces
     public interface IUserRepository
     {
         UserModel FindUser(string username, string password);
-        void AddUser(UserModel userModel);
+        void AddUser(UserModel user);
     }
 }

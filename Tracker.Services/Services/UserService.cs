@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tracker.IRepository.Interfaces;
+using Tracker.IRepository.Models;
 using Tracker.Services.IServices;
 using Tracker.Services.Models;
 
@@ -17,9 +18,16 @@ namespace Tracker.Services.Services
             UserRepo = userRepo;
         }
 
-        public void AddUser(UserDTO user)
+        public bool AddUser(UserDTO user)
         {
-            throw new NotImplementedException();
+            if (user == null) return false;
+            UserRepo.AddUser(new UserModel()
+            {
+                Username = user.Username,
+                Password = user.Password,
+                Email = user.Email
+            });
+            return true;
         }
 
         public UserDTO FindUser(string username, string password)
