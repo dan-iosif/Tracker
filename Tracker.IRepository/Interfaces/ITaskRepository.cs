@@ -10,5 +10,6 @@ namespace Tracker.IRepository.Interfaces
     public interface ITaskRepository
     {
         IEnumerable<TaskModel> GetAllTasks();
+        void AddUser(TaskModel taskModel);
     }
 }

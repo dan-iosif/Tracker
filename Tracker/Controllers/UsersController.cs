@@ -25,7 +25,7 @@ namespace Tracker.Controllers
 
         [Authorize]
         [HttpPost]
-        public IHttpActionResult AddUser([FromBody] UserDTO user)
+        public IHttpActionResult AddUser([FromBody] UserDTO user) 
         {
             return Ok(UserService.AddUser(user));
         }

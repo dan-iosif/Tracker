@@ -18,6 +18,7 @@ namespace Tracker
 
             // e.g. container.RegisterType<ITestService, TestService>();
             container.RegisterType<IUserService, UserService>();
+            container.RegisterType<ITaskService, TaskService>();
             IOCConfig.RegisterComponents(container);
 
             config.DependencyResolver = new UnityDependencyResolver(container);
