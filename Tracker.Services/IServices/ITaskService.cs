@@ -11,5 +11,6 @@ namespace Tracker.Services.IServices
     {
         List<TaskDTO> GetTasks();
         bool AddTask(TaskDTO task);
+        bool UpsertTask(TaskDTO task);
     }
 }

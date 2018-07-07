@@ -29,6 +29,11 @@ namespace Tracker.Controllers
         {
             return Ok(TaskService.AddTask(task));
         }
+        [HttpPost]
+        public IHttpActionResult upsertTask([FromBody] TaskDTO task)
+        {
+            return Ok(TaskService.UpsertTask(task));
+        }
 
     }
 }

@@ -37,5 +37,19 @@ namespace Tracker.Services.Services
                 Description = x.Description
             }).ToList();
         }
+
+        public bool UpsertTask(TaskDTO task)
+        {
+            //face update
+            if (task.Id_Task > 0) {
+
+            }
+            else
+            {
+                //do insert
+
+            }
+            return true;
+        }
     }
 }
