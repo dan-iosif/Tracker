@@ -17,13 +17,12 @@ namespace Tracker.Controllers
             TaskService = taskService;
         }
         
-        [Authorize]
         [HttpGet]
         public IHttpActionResult GetTasks()
         {
             return Ok(TaskService.GetTasks());
         }
-        [Authorize]
+
         [HttpPost]
         public IHttpActionResult AddTask([FromBody] TaskDTO task)
         {
