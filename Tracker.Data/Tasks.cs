@@ -28,10 +28,10 @@ namespace Tracker.Data
         public Nullable<int> TaskGroup_Id { get; set; }
     
         public virtual Projects Projects { get; set; }
-        public virtual TaskGroup TaskGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaskPermissions> TaskPermissions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TimeEntry> TimeEntry { get; set; }
+        public virtual TaskGroups TaskGroups { get; set; }
     }
 }

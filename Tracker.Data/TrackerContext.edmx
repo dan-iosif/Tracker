@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clocking">
           <Key>
             <PropertyRef Name="Id_Clocking" />
@@ -39,13 +39,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="TaskGroup">
-          <Key>
-            <PropertyRef Name="Id_TaskGroup" />
-          </Key>
-          <Property Name="Id_TaskGroup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="TaskGroupPermissions">
           <Key>
             <PropertyRef Name="Id_GroupPermission" />
@@ -53,6 +46,13 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="TaskGroup_Id" Type="int" Nullable="false" />
           <Property Name="Id_GroupPermission" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskGroups">
+          <Key>
+            <PropertyRef Name="Id_TaskGroup" />
+          </Key>
+          <Property Name="Id_TaskGroup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskPermissions">
           <Key>
@@ -100,10 +100,10 @@
           <Property Name="Id_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_TaskGroupPermissions_TaskGroup">
-          <End Role="TaskGroup" Type="Self.TaskGroup" Multiplicity="1" />
+          <End Role="TaskGroups" Type="Self.TaskGroups" Multiplicity="1" />
           <End Role="TaskGroupPermissions" Type="Self.TaskGroupPermissions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TaskGroup">
+            <Principal Role="TaskGroups">
               <PropertyRef Name="Id_TaskGroup" />
             </Principal>
             <Dependent Role="TaskGroupPermissions">
@@ -136,10 +136,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tasks_TaskGroup">
-          <End Role="TaskGroup" Type="Self.TaskGroup" Multiplicity="0..1" />
+          <End Role="TaskGroups" Type="Self.TaskGroups" Multiplicity="0..1" />
           <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TaskGroup">
+            <Principal Role="TaskGroups">
               <PropertyRef Name="Id_TaskGroup" />
             </Principal>
             <Dependent Role="Tasks">
@@ -224,15 +224,15 @@
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaskGroup" EntityType="Self.TaskGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskGroupPermissions" EntityType="Self.TaskGroupPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskGroups" EntityType="Self.TaskGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskPermissions" EntityType="Self.TaskPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimeEntry" EntityType="Self.TimeEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TaskGroupPermissions_TaskGroup" Association="Self.FK_TaskGroupPermissions_TaskGroup">
-            <End Role="TaskGroup" EntitySet="TaskGroup" />
+            <End Role="TaskGroups" EntitySet="TaskGroups" />
             <End Role="TaskGroupPermissions" EntitySet="TaskGroupPermissions" />
           </AssociationSet>
           <AssociationSet Name="FK_TaskGroupPermissions_Users" Association="Self.FK_TaskGroupPermissions_Users">
@@ -244,7 +244,7 @@
             <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
           <AssociationSet Name="FK_Tasks_TaskGroup" Association="Self.FK_Tasks_TaskGroup">
-            <End Role="TaskGroup" EntitySet="TaskGroup" />
+            <End Role="TaskGroups" EntitySet="TaskGroups" />
             <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
           <AssociationSet Name="FK_TaskUserPermissions_Tasks" Association="Self.FK_TaskUserPermissions_Tasks">
@@ -272,8 +272,7 @@
             <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -313,15 +312,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="TaskGroup">
-          <Key>
-            <PropertyRef Name="Id_TaskGroup" />
-          </Key>
-          <Property Name="Id_TaskGroup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TaskGroupPermissions" Relationship="Self.FK_TaskGroupPermissions_TaskGroup" FromRole="TaskGroup" ToRole="TaskGroupPermissions" />
-          <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_TaskGroup" FromRole="TaskGroup" ToRole="Tasks" />
-        </EntityType>
         <EntityType Name="TaskGroupPermissions">
           <Key>
             <PropertyRef Name="Id_GroupPermission" />
@@ -329,8 +319,8 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="TaskGroup_Id" Type="Int32" Nullable="false" />
           <Property Name="Id_GroupPermission" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="TaskGroup" Relationship="Self.FK_TaskGroupPermissions_TaskGroup" FromRole="TaskGroupPermissions" ToRole="TaskGroup" />
           <NavigationProperty Name="Users" Relationship="Self.FK_TaskGroupPermissions_Users" FromRole="TaskGroupPermissions" ToRole="Users" />
+          <NavigationProperty Name="TaskGroups" Relationship="TrackerModel.FK_TaskGroupPermissions_TaskGroup1" FromRole="TaskGroupPermissions" ToRole="TaskGroups" />
         </EntityType>
         <EntityType Name="TaskPermissions">
           <Key>
@@ -352,9 +342,9 @@
           <Property Name="Project_Id" Type="Int32" />
           <Property Name="TaskGroup_Id" Type="Int32" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_Tasks_Projects" FromRole="Tasks" ToRole="Projects" />
-          <NavigationProperty Name="TaskGroup" Relationship="Self.FK_Tasks_TaskGroup" FromRole="Tasks" ToRole="TaskGroup" />
           <NavigationProperty Name="TaskPermissions" Relationship="Self.FK_TaskUserPermissions_Tasks" FromRole="Tasks" ToRole="TaskPermissions" />
           <NavigationProperty Name="TimeEntry" Relationship="Self.FK_TimeEntry_Tasks" FromRole="Tasks" ToRole="TimeEntry" />
+          <NavigationProperty Name="TaskGroups" Relationship="TrackerModel.FK_Tasks_TaskGroup1" FromRole="Tasks" ToRole="TaskGroups" />
         </EntityType>
         <EntityType Name="TimeEntry">
           <Key>
@@ -412,30 +402,6 @@
             </Principal>
             <Dependent Role="UserRoles">
               <PropertyRef Name="Role_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TaskGroupPermissions_TaskGroup">
-          <End Role="TaskGroup" Type="Self.TaskGroup" Multiplicity="1" />
-          <End Role="TaskGroupPermissions" Type="Self.TaskGroupPermissions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskGroup">
-              <PropertyRef Name="Id_TaskGroup" />
-            </Principal>
-            <Dependent Role="TaskGroupPermissions">
-              <PropertyRef Name="TaskGroup_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tasks_TaskGroup">
-          <End Role="TaskGroup" Type="Self.TaskGroup" Multiplicity="0..1" />
-          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskGroup">
-              <PropertyRef Name="Id_TaskGroup" />
-            </Principal>
-            <Dependent Role="Tasks">
-              <PropertyRef Name="TaskGroup_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -516,7 +482,6 @@
           <EntitySet Name="Projects" EntityType="Self.Projects" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TaskGroup" EntityType="Self.TaskGroup" />
           <EntitySet Name="TaskGroupPermissions" EntityType="Self.TaskGroupPermissions" />
           <EntitySet Name="TaskPermissions" EntityType="Self.TaskPermissions" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" />
@@ -530,14 +495,6 @@
           <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="UserRoles" EntitySet="UserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TaskGroupPermissions_TaskGroup" Association="Self.FK_TaskGroupPermissions_TaskGroup">
-            <End Role="TaskGroup" EntitySet="TaskGroup" />
-            <End Role="TaskGroupPermissions" EntitySet="TaskGroupPermissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tasks_TaskGroup" Association="Self.FK_Tasks_TaskGroup">
-            <End Role="TaskGroup" EntitySet="TaskGroup" />
-            <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
           <AssociationSet Name="FK_TaskGroupPermissions_Users" Association="Self.FK_TaskGroupPermissions_Users">
             <End Role="Users" EntitySet="Users" />
@@ -563,7 +520,49 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
+          <EntitySet Name="TaskGroups" EntityType="TrackerModel.TaskGroups" />
+          <AssociationSet Name="FK_TaskGroupPermissions_TaskGroup1" Association="TrackerModel.FK_TaskGroupPermissions_TaskGroup1">
+            <End Role="TaskGroups" EntitySet="TaskGroups" />
+            <End Role="TaskGroupPermissions" EntitySet="TaskGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskGroup1" Association="TrackerModel.FK_Tasks_TaskGroup1">
+            <End Role="TaskGroups" EntitySet="TaskGroups" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TaskGroups">
+          <Key>
+            <PropertyRef Name="Id_TaskGroup" />
+          </Key>
+          <Property Name="Id_TaskGroup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TaskGroupPermissions" Relationship="TrackerModel.FK_TaskGroupPermissions_TaskGroup1" FromRole="TaskGroups" ToRole="TaskGroupPermissions" />
+          <NavigationProperty Name="Tasks" Relationship="TrackerModel.FK_Tasks_TaskGroup1" FromRole="TaskGroups" ToRole="Tasks" />
+        </EntityType>
+        <Association Name="FK_TaskGroupPermissions_TaskGroup1">
+          <End Type="TrackerModel.TaskGroups" Role="TaskGroups" Multiplicity="1" />
+          <End Type="TrackerModel.TaskGroupPermissions" Role="TaskGroupPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskGroups">
+              <PropertyRef Name="Id_TaskGroup" />
+            </Principal>
+            <Dependent Role="TaskGroupPermissions">
+              <PropertyRef Name="TaskGroup_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskGroup1">
+          <End Type="TrackerModel.TaskGroups" Role="TaskGroups" Multiplicity="0..1" />
+          <End Type="TrackerModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskGroups">
+              <PropertyRef Name="Id_TaskGroup" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="TaskGroup_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -605,14 +604,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaskGroup">
-            <EntityTypeMapping TypeName="TrackerModel.TaskGroup">
-              <MappingFragment StoreEntitySet="TaskGroup">
-                <ScalarProperty Name="Id_TaskGroup" ColumnName="Id_TaskGroup" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -672,6 +663,14 @@
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskGroups">
+            <EntityTypeMapping TypeName="TrackerModel.TaskGroups">
+              <MappingFragment StoreEntitySet="TaskGroups">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Id_TaskGroup" ColumnName="Id_TaskGroup" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

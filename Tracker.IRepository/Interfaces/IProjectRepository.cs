@@ -7,10 +7,9 @@ using Tracker.IRepository.Models;
 
 namespace Tracker.IRepository.Interfaces
 {
-    public interface ITaskRepository
+    public interface IProjectRepository
     {
-        IEnumerable<TaskModel> GetAllTasks();
-        void AddTask(TaskModel task);
-        bool UpdateTask(TaskModel task);
+        IEnumerable<ProjectModel> GetAllProjects();
+        void AddProject(ProjectModel project);
     }
 }

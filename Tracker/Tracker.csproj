@@ -163,6 +163,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tracker.IRepository\Tracker.IRepository.csproj">
+      <Project>{1A2AFD1F-C5C5-4F02-8F85-6BC2A0531EAE}</Project>
+      <Name>Tracker.IRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tracker.Services\Tracker.Services.csproj">
       <Project>{1d0e03c7-a87b-4b64-93e7-e62e6b18fe23}</Project>
       <Name>Tracker.Services</Name>

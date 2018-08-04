@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using Tracker.IRepository.Models;
 using Tracker.Services.IServices;
 using Tracker.Services.Models;
 
@@ -24,12 +25,7 @@ namespace Tracker.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult AddTask([FromBody] TaskDTO task)
-        {
-            return Ok(TaskService.AddTask(task));
-        }
-        [HttpPost]
-        public IHttpActionResult upsertTask([FromBody] TaskDTO task)
+        public IHttpActionResult UpsertTask([FromBody] TaskModel task)
         {
             return Ok(TaskService.UpsertTask(task));
         }

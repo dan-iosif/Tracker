@@ -18,7 +18,7 @@ namespace Tracker.Data
         public int TaskGroup_Id { get; set; }
         public int Id_GroupPermission { get; set; }
     
-        public virtual TaskGroup TaskGroup { get; set; }
         public virtual Users Users { get; set; }
+        public virtual TaskGroups TaskGroups { get; set; }
     }
 }

@@ -29,12 +29,12 @@ namespace Tracker.Data
         public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<TaskGroup> TaskGroup { get; set; }
         public virtual DbSet<TaskGroupPermissions> TaskGroupPermissions { get; set; }
         public virtual DbSet<TaskPermissions> TaskPermissions { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<TimeEntry> TimeEntry { get; set; }
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<TaskGroups> TaskGroups { get; set; }
     }
 }

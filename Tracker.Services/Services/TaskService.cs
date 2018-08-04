@@ -13,43 +13,45 @@ namespace Tracker.Services.Services
     public class TaskService : ITaskService
     {
         private ITaskRepository TaskRepo;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
         public TaskService(ITaskRepository taskRepo)
         {
             TaskRepo = taskRepo;
         }
 
-        public bool AddTask(TaskDTO task)
+        public List<TaskModel> GetTasks()
         {
-            if (task == null) return false;
-            TaskRepo.AddUser(new TaskModel() {
-               Name = task.Name,
-               Description = task.Description,
-            });
-            return true;
+            return TaskRepo.GetAllTasks().ToList();
         }
 
-        public List<TaskDTO> GetTasks()
+        public bool UpsertTask(TaskModel task)
         {
-            return TaskRepo.GetAllTasks().Select(x=> new TaskDTO() {
-                Id_Task = x.Id_Task,
-                Name = x.Name,
-                Description = x.Description
-            }).ToList();
-        }
-
-        public bool UpsertTask(TaskDTO task)
-        {
-            //face update
-            if (task.Id_Task > 0) {
-
-            }
-            else
+            log.Debug("Entered Upsert Task");
+            try
             {
-                //do insert
-
+                if (task == null)
+                {
+                    throw new Exception("TaskService: UpsertTask did not receive a Task!");
+                }
+                // update
+                if (task.Id_Task > 0)
+                {
+                    if (!TaskRepo.UpdateTask(task)) return false;
+                }
+                else
+                {
+                //insert
+                    TaskRepo.AddTask(task);
+                }
+                return true;
             }
-            return true;
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
     }
 }

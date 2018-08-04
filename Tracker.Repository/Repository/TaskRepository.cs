@@ -11,12 +11,14 @@ namespace Tracker.Repository.Repository
 {
     public class TaskRepository: BaseRepository, ITaskRepository
     {
-        public void AddUser(TaskModel taskModel)
+        public void AddTask(TaskModel task)
         {
             DbContext.Tasks.Add(new Tasks()
             {
-                Name = taskModel.Name,
-                Description = taskModel.Description,
+                Name = task.Name,
+                Description = task.Description,
+                Project_Id = task.Project_Id,
+                TaskGroup_Id = task.TaskGroup_Id
             });
             DbContext.SaveChanges();
         }
@@ -27,9 +29,27 @@ namespace Tracker.Repository.Repository
             {
                 Name = x.Name,
                 Description = x.Description,
+                Project_Id = x.Project_Id,
+                TaskGroup_Id = x.TaskGroup_Id,
                 Id_Task = x.Id_Task
             }).ToList();
             return result;
+        }
+
+        public bool UpdateTask(TaskModel task)
+        {
+            var result = DbContext.Tasks.Find(task.Id_Task);
+            if (result == null) return false;
+            
+            else
+            {
+                if (task.Name != null) result.Name = task.Name;
+                if (task.Description != null) result.Description = task.Description;
+                if (task.Project_Id!= null) result.Description = task.Description;
+                if (task.TaskGroup_Id != null) result.TaskGroup_Id= task.TaskGroup_Id;
+                DbContext.SaveChanges();
+                return true;
+            }
         }
     }
 }

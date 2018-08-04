@@ -62,10 +62,10 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>TrackerContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="TaskGroup.cs">
+    <Compile Include="TaskGroupPermissions.cs">
       <DependentUpon>TrackerContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="TaskGroupPermissions.cs">
+    <Compile Include="TaskGroups.cs">
       <DependentUpon>TrackerContext.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskPermissions.cs">
