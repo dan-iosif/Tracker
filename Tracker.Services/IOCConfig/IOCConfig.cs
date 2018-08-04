@@ -15,6 +15,8 @@ namespace Tracker.Services.IOCConfig
         {
             unityContainer.RegisterType<IUserRepository, UserRepository>();
             unityContainer.RegisterType<ITaskRepository, TaskRepository>();
+            unityContainer.RegisterType<IProjectRepository, ProjectRepository>();
+            unityContainer.RegisterType<ITaskGroupRepository, TaskGroupRepository>();
         }
        
     }

@@ -12,6 +12,12 @@ namespace Tracker.Services.Services
     public class ProjectService : IProjectService
     {
         private IProjectRepository projectRepository;
+
+        public ProjectService(IProjectRepository projectRepository)
+        {
+            this.projectRepository = projectRepository;
+        }
+
         public bool AddProject(ProjectModel project)
         {
             try

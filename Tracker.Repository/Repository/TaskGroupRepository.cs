@@ -17,6 +17,7 @@ namespace Tracker.Repository.Repository
             {
                 GroupName = taskGroup.GroupName
             });
+            DbContext.SaveChanges();
         }
 
         public IEnumerable<TaskGroupModel> GetAllTaskGroups()
