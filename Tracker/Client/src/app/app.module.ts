@@ -7,14 +7,17 @@ import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TasksComponent } from './components/tasks/tasks.component';
-import { TaskService } from '../services/taskService';
+import { TaskService } from './services/taskService';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth.service';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent
+    TasksComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { TaskService } from '../services/taskService';
     FormsModule
   ],
   providers: [
-    TaskService
+    TaskService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

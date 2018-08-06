@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { TaskModel } from '../app/models/TaskModel';
+import { TaskModel } from '../models/TaskModel';
 
 
 @Injectable()
@@ -12,6 +12,6 @@ export class TaskService {
     }
 
     saveTask(task: TaskModel) {
-        return this.http.post<TaskModel>('/api/tasks/AddTask', task).toPromise();
+        return this.http.post<TaskModel>('/api/tasks/UpsertTask', task).toPromise();
     }
 }
