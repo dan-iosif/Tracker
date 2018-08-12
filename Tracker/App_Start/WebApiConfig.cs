@@ -19,6 +19,12 @@ namespace Tracker
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+        name: "OnNoFound",
+        routeTemplate: "{*url}",
+        defaults: new { controller = "app", action = "FetchIndex" }
+        );
         }
     }
 }

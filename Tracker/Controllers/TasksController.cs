@@ -9,6 +9,7 @@ using Tracker.Services.Models;
 
 namespace Tracker.Controllers
 {
+    [Authorize]
     public class TasksController : ApiController
     {
         protected ITaskService TaskService;

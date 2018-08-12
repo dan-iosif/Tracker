@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskModel } from '../../models/TaskModel';
 import { TaskService } from '../../services/taskService';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -12,11 +13,19 @@ export class TasksComponent implements OnInit {
   task: TaskModel;
   errorMessage: string;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private router: Router, private taskService: TaskService) { }
 
   ngOnInit() {
     this.getTasks();
     this.task = new TaskModel();
+  }
+
+  saveTask(item: TaskModel){
+    if (item){
+      this.router.navigate(['tasks/upsert/' + item.Id_Task, {task: item} ]);
+    } else {
+      this.router.navigateByUrl('tasks/upsert');
+    }
   }
   
   getTasks() {
@@ -26,17 +35,7 @@ export class TasksComponent implements OnInit {
     );
   }
 
-  addTask() {
-    console.log(this.task);
-    this.taskService.saveTask(this.task).then(
-      success => {
-        this.errorMessage = 'Task ' + this.task.Name + ' added';
-      },
-      error => {
-        this.errorMessage = 'There was a problem';
-      }
-    );
-  }
+  
 
 }
 

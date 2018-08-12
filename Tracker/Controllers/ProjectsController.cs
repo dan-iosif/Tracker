@@ -9,6 +9,7 @@ using Tracker.Services.IServices;
 
 namespace Tracker.Controllers
 {
+    [Authorize]
     public class ProjectsController : ApiController
     {
         protected IProjectService projectService;

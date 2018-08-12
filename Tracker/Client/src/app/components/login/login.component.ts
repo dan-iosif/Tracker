@@ -16,12 +16,11 @@ export class LoginComponent implements OnInit {
 
   // first thing, check if already authenticated, navigate to  home page
   ngOnInit() {
-    if (this.authService.isAuthenticated())
-      this.router.navigateByUrl('/tasks');
   }
 
   authenticate(ev) {
     ev.preventDefault();
+    //user clicked Login but authentication process already in progress
     if (this.isAuthenticating) return;
 
     // check if username not empty
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.isAuthenticating = true;
     this.authService.authenticate(this.user.username, this.user.password).then(rsp => {
       // this.toaster.pop("success", "Welcome " + this.user.username);
-      this.router.navigateByUrl('/tasks');
+      this.router.navigateByUrl('/clocking');
     }, err => {
       setTimeout(function () {
         this.isAuthenticating = false;

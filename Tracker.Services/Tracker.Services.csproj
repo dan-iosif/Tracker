@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="IOCConfig\IOCConfig.cs" />
     <Compile Include="IServices\IProjectService.cs" />
     <Compile Include="IServices\ITaskService.cs" />

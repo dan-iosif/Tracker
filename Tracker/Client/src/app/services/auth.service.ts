@@ -10,7 +10,11 @@ export class AuthService {
 
     isAuthenticated() {
         return this.getUser() != null;
-    }
+  }
+
+  logout() {
+    localStorage.removeItem(environment._tokenKey);
+  }
 
 
     private getUser() {

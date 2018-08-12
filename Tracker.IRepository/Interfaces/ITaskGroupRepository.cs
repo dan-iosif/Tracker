@@ -9,7 +9,9 @@ namespace Tracker.IRepository.Interfaces
 {
     public interface ITaskGroupRepository
     {
-        IEnumerable<TaskGroupModel> GetAllTaskGroups();
-        void AddTaskGroup(TaskGroupModel taskGroup);
+        IEnumerable<TaskGroupModel> GetAllTaskGroups(TaskGroupFilter filter);
+        int AddTaskGroup(TaskGroupModel taskGroup);
+        TaskGroupModel GetById(int id);
+        TaskGroupModel GetByName(string name);
     }
 }

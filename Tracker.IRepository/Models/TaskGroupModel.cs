@@ -11,4 +11,9 @@ namespace Tracker.IRepository.Models
         public int Id_TaskGroupModel { get; set; }
         public string GroupName { get; set; }
     }
+
+    public class TaskGroupFilter
+    {
+        public string Name { get; set; }
+    }
 }

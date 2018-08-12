@@ -9,7 +9,8 @@ namespace Tracker.Services.IServices
 {
     public interface ITaskGroupService
     {
-        List<TaskGroupModel> GetTaskGroups();
-        bool AddTaskGroup(TaskGroupModel taskGroup);
+        List<TaskGroupModel> GetTaskGroups(TaskGroupFilter filter);
+        int AddTaskGroup(TaskGroupModel taskGroup);
+        TaskGroupModel GetById(int id);
     }
 }
